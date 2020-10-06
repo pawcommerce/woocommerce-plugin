@@ -273,7 +273,7 @@ function pawc_gateway_load() {
       $data = stripslashes_deep( $data );
 
       $this->log->add( 'PawCommerce', 'Order #'.$order->get_id().' payment status: ' . $data['status'] );
-      $order->add_order_note( 'PawCommerce payment status: ' . $data['status'] );
+      $order->add_order_note( 'PawCommerce confirmed payment status: ' . $data['status'] );
 
       update_post_meta( $order->get_id(), 'address', $data['addr'] );
 
