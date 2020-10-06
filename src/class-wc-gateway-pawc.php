@@ -141,7 +141,7 @@ function pawc_gateway_load() {
           'z' => $this->get_return_url( $order ),
           'n' => strval(rand ( 1000000 , 9999999 )),
           'r' => $order->get_id(),
-          'd' => home_url( '/' ),
+          'd' => "Payment for " . home_url( '/' ),
           'v' => '1',
         );
     }
