@@ -2,7 +2,7 @@
 Tags: dogecoin, woocommerce, e-commerce, payments
 Requires at least: 3.7.0
 Tested up to: 5.5
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: MIT
 License URI: https://github.com/pawcommerce/woocommerce-plugin/blob/master/license.txt
 
@@ -27,6 +27,10 @@ WooCommerce shop, through pawcommerce.com.
 7. Click "Save changes".
 
 == Changelog ==
+
+= 1.0.2 =
+* Working IPN integration
+* Make default currency description "Dogecoin"
 
 = 1.0.1 =
 * Alpha release
