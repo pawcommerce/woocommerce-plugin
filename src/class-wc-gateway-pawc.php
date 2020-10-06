@@ -116,7 +116,7 @@ function pawc_gateway_load() {
                 'title' => __( 'Title', 'woocommerce' ),
                 'type' => 'text',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-                'default' => __( 'PawCommerce', 'woocommerce' ),
+                'default' => __( 'Dogecoin', 'woocommerce' ),
                 'desc_tip'      => true),
         'description' => array(
                 'title' => __( 'Description', 'woocommerce' ),
