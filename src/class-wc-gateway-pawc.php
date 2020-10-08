@@ -273,9 +273,21 @@ function pawc_gateway_load() {
       $data = stripslashes_deep( $data );
 
       $this->log->add( 'PawCommerce', 'Order #'.$order->get_id().' payment status: ' . $data['status'] );
-      $order->add_order_note( 'PawCommerce confirmed payment status: ' . $data['status'] );
+      $note = 'PawCommerce confirmed payment status: ' . $data['status'];
+      if ( isset( $data['conf'] ) &&  $data['status'] == 'paid' ) {
+        $note .= ', ' . $data['conf'] . ' confirmations';
+      }
+      $order->add_order_note( $note );
 
       update_post_meta( $order->get_id(), 'address', $data['addr'] );
+
+      if ( isset( $data['alias'] ) ) {
+        update_post_meta( $order->get_id(), 'alias', $data['alias'] );
+      }
+
+      if ( isset( $data['txs'] ) ) {
+        update_post_meta( $order->get_id(), 'transactions', str_replace( ',', ' ', $data['txs'] ) );
+      }
 
       switch ($data['status']) {
         case 'pending':
