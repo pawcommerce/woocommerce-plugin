@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Description: WooCommerce plugin to for PawCommerce
  * Author: Liberate, Inc.
  * Author URI: https://www.pawcommerce.com/
- * Version: 1.0.3-dev
+ * Version: 1.0.3
  */
 
 /**
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  *
  * @class      WC_Gateway_PawCommerce
  * @extends    WC_Payment_Gateway
- * @version    1.0.3-dev
+ * @version    1.0.3
  * @package    WooCommerce/Classes/Payment
  * @author     Liberate, Inc.
  */
