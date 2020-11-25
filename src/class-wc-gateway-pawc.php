@@ -66,6 +66,7 @@ function pawc_gateway_load() {
       global $woocommerce;
 
       $this->ipn_url      = add_query_arg( 'wc-api', 'WC_Gateway_PawCommerce', home_url( '/' ) );
+      $this->pay_addr     = "https://pay.pawcommerce.com/pay";
 
       $this->id           = 'pawcommerce';
       $this->icon         = apply_filters( 'woocommerce_pawc_icon', plugins_url().'/pawcommerce-for-woocommerce/assets/images/icons/pawc-pay-button.png' );
@@ -153,10 +154,9 @@ function pawc_gateway_load() {
         $order->update_status('pending', 'Customer is being redirected to the PawCommerce payment page...');
       }
 
-      $pay_addr = "https://pay.pawcommerce.com/pay?";
       $pay_qs = $this->make_pay_request( $order );
       $pay_qs['s'] = $this->sign_request( $pay_qs );
-      return $pay_addr . http_build_query( $pay_qs, '', '&' );
+      return $this->pay_addr . '?' . http_build_query( $pay_qs, '', '&' );
 
     }
 
