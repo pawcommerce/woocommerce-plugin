@@ -282,11 +282,20 @@ function pawc_gateway_load() {
       update_post_meta( $order->get_id(), 'address', $data['addr'] );
 
       if ( isset( $data['alias'] ) ) {
-        update_post_meta( $order->get_id(), 'alias', $data['alias'] );
+        update_post_meta( $order->get_id(), 'block_io_alias', $data['alias'] );
       }
 
       if ( isset( $data['txs'] ) ) {
         update_post_meta( $order->get_id(), 'transactions', str_replace( ',', ' ', $data['txs'] ) );
+      }
+
+      if ( isset( $data['confirmed'] ) ) {
+        update_post_meta( $order->get_id(), 'pawcommerce_confirmed_amount', $data['confirmed'] );
+      }
+
+      if ( isset( $data['invoice_id'] ) ) {
+        update_post_meta( $order->get_id(), 'pawcommerce_invoice_url', $this->pay_addr . '/' . $data['invoice_id'] );
+        update_post_meta( $order->get_id(), 'pawcommerce_invoice_id', $data['invoice_id'] );
       }
 
       switch ($data['status']) {
