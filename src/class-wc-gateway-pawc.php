@@ -48,6 +48,32 @@ function pawc_gateway_load() {
     return $currency_symbol;
   }
 
+  // Add a column to show overpayment to the orders table
+  add_filter( 'manage_edit-shop_order_columns', 'pawc_add_overpaid');
+  add_action( 'manage_shop_order_posts_custom_column', 'pawc_display_overpaid', 10, 3);
+
+  function pawc_add_overpaid( $columns ){
+    $columns['overpay'] = 'Overpaid';
+    return $columns;
+  }
+
+  function pawc_display_overpaid( $column_name ) {
+    global $the_order;
+
+  	if( $column_name == 'overpay' ) {
+  		$op = get_post_meta( $the_order->get_id(), 'pawcommerce_overpaid', true );
+
+      if ( $op == false ) {
+        $output = '-';
+      } else {
+        $output = number_format( floatval( $op ), 2, '.', '' ) . ' DOGE';
+      }
+
+      echo $output;
+  	}
+
+  }
+
   add_filter( 'woocommerce_payment_gateways', 'pawc_add_gateway' );
 
   function pawc_add_gateway( $methods ) {
