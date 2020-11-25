@@ -80,6 +80,7 @@ function pawc_gateway_load() {
       $this->title         = $this->get_option( 'title' );
       $this->description   = $this->get_option( 'description' );
       $this->token        = $this->get_option( 'token' );
+      $this->overpay_threshold = $this->get_option( 'overpay_threshold' );
 
       $this->log = new WC_Logger();
 
@@ -129,6 +130,11 @@ function pawc_gateway_load() {
                 'type'       => 'text',
                 'description' => __( 'Please enter your PawCommerce token.', 'woocommerce' ),
                 'default' => ''),
+        'overpay_threshold' => array(
+                'title' => __( 'Overpayment threshold', 'woocommerce' ),
+                'type'       => 'text',
+                'description' => __( 'The threshold in DOGE after which an overpayment is flagged.', 'woocommerce' ),
+                'default' => '2'),
       );
 
     }
@@ -277,6 +283,16 @@ function pawc_gateway_load() {
       if ( isset( $data['conf'] ) &&  $data['status'] == 'paid' ) {
         $note .= ', ' . $data['conf'] . ' confirmations';
       }
+
+      // Check for overpayment > threshold
+      if ( isset( $data['confirmed'] ) && intval($data['confirmed']) - intval($order->get_total()) > $this->overpay_threshold ) {
+
+        $overpaid = intval($data['confirmed']) - intval($order->get_total());
+        update_post_meta( $order->get_id(), 'pawcommerce_overpaid', $overpaid );
+        $note .= ' (overpaid ' . $overpaid . ' DOGE)';
+
+      }
+
       $order->add_order_note( $note );
 
       update_post_meta( $order->get_id(), 'address', $data['addr'] );
